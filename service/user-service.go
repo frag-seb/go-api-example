@@ -4,6 +4,7 @@ import (
 	"demo/entity"
 	"demo/repository"
 	"errors"
+
 	"github.com/google/uuid"
 )
 
@@ -16,7 +17,7 @@ type UserService interface {
 type service struct{}
 
 var (
-	repo repository.UserRepository = repository.NewUserSQLiteRepository()
+	repo repository.UserRepository = repository.NewUserMemoryRepository()
 )
 
 //NewUserService

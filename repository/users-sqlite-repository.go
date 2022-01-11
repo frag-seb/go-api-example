@@ -3,9 +3,10 @@ package repository
 import (
 	"database/sql"
 	"demo/entity"
-	_ "github.com/mattn/go-sqlite3"
 	"log"
 	"os"
+
+	_ "github.com/mattn/go-sqlite3"
 )
 
 type sqliteRepo struct{}
@@ -92,7 +93,7 @@ func (*sqliteRepo) FindAll() ([]entity.User, error) {
 	}
 	defer rows.Close()
 
-	var users []entity.User
+	users := []entity.User{}
 
 	for rows.Next() { // Iterate and fetch the records from result cursor
 		item := UserItem{}

@@ -2,7 +2,6 @@ package repository
 
 import (
 	"demo/entity"
-	"github.com/google/uuid"
 	"log"
 )
 
@@ -11,7 +10,7 @@ var (
 )
 
 func init() {
-	users = []entity.User{entity.User{Id: uuid.NewString(), Firstname: "Firstname 1", Lastname: "Lastname 1"}}
+	users = []entity.User{}
 }
 
 type repo struct{}
