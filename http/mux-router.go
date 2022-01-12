@@ -2,8 +2,9 @@ package router
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 type muxRouter struct{}
@@ -27,6 +28,10 @@ func (*muxRouter) GET(uri string, f func(w http.ResponseWriter, r *http.Request)
 
 func (*muxRouter) POST(uri string, f func(w http.ResponseWriter, r *http.Request)) {
 	muxDispatcher.HandleFunc(uri, f).Methods("POST")
+}
+
+func (*muxRouter) DELETE(uri string, f func(w http.ResponseWriter, r *http.Request)) {
+	muxDispatcher.HandleFunc(uri, f).Methods("DELETE")
 }
 
 func (*muxRouter) SERVE(port string) {

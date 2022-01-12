@@ -2,7 +2,7 @@ package repositories
 
 import (
 	"demo/entity"
-	"log"
+	"reflect"
 )
 
 var (
@@ -27,6 +27,43 @@ func (*repo) Save(user *entity.User) (*entity.User, error) {
 }
 
 func (*repo) FindAll() ([]entity.User, error) {
-	log.Println("FindAll memory")
 	return users, nil
+}
+
+func (*repo) Find(user_id string) (*entity.User, error) {
+	var user entity.User
+
+	for _, v := range users {
+		if v.ID == user_id {
+			user = entity.User{
+				ID:        v.ID,
+				Firstname: v.Firstname,
+				Lastname:  v.Lastname,
+			}
+		}
+	}
+
+	if user.ID == "" {
+		return nil, nil
+	}
+
+	return &user, nil
+}
+
+func (*repo) Delete(user_id string) error {
+
+	for i, v := range users {
+		if v.ID == user_id {
+			// Found it!
+			users = append(users[:i], users[i+1:]...)
+			break
+		}
+	}
+
+	return nil
+}
+
+func sliceRemoveItem(slicep interface{}, i int) {
+	v := reflect.ValueOf(slicep).Elem()
+	v.Set(reflect.AppendSlice(v.Slice(0, i), v.Slice(i+1, v.Len())))
 }

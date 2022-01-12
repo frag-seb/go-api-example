@@ -16,7 +16,9 @@ func main() {
 	connection.ConnectDatabase() // new
 
 	httpRouter.GET("/users", userController.GetUsers)
+	httpRouter.GET("/users/{id}", userController.GetUser)
 	httpRouter.POST("/users", userController.PostUsers)
+	httpRouter.DELETE("/users/{id}", userController.DeleteUser)
 
 	httpRouter.SERVE(port)
 }
