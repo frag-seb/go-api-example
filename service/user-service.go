@@ -2,8 +2,9 @@ package service
 
 import (
 	"demo/entity"
-	"demo/repository"
+	"demo/repositories"
 	"errors"
+	"log"
 
 	"github.com/google/uuid"
 )
@@ -17,7 +18,7 @@ type UserService interface {
 type service struct{}
 
 var (
-	repo repository.UserRepository = repository.NewUserMemoryRepository()
+	repo repositories.UserRepository = repositories.NewUserSQLiteRepository()
 )
 
 //NewUserService
@@ -27,20 +28,24 @@ func NewUserService() UserService {
 
 func (*service) Validate(user *entity.User) error {
 	if user == nil {
-		err := errors.New("User is empty")
-		return err
+		return errors.New("User is empty")
 	}
 
 	if user.Firstname == "" {
-		err := errors.New("User firstname is empty")
-		return err
+		return errors.New("User firstname is empty")
 	}
 
 	return nil
 }
 
 func (*service) Create(user *entity.User) (*entity.User, error) {
-	user.Id = uuid.NewString()
+	uuidResult, err := uuid.NewRandom()
+
+	if err != nil {
+		log.Fatalln(err)
+	}
+
+	user.ID = uuidResult.String()
 
 	return repo.Save(user)
 }

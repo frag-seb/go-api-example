@@ -1,4 +1,4 @@
-package repository
+package repositories
 
 import (
 	"demo/entity"
@@ -21,7 +21,6 @@ func NewUserMemoryRepository() UserRepository {
 }
 
 func (*repo) Save(user *entity.User) (*entity.User, error) {
-	//ctx := context.Background()
 	users = append(users, *user)
 
 	return user, nil

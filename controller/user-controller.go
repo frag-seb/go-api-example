@@ -25,6 +25,7 @@ func NewUserController() UserController {
 
 func (*controller) GetUsers(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
+
 	users, err := userService.FindAll()
 	if err != nil {
 		response.WriteHeader(http.StatusNotFound)

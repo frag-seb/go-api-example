@@ -1,10 +1,9 @@
 package main
 
 import (
+	"demo/connection"
 	"demo/controller"
 	router "demo/http"
-	"fmt"
-	"net/http"
 )
 
 var (
@@ -14,14 +13,10 @@ var (
 
 func main() {
 	const port string = ":8000"
-
-	httpRouter.REQUEST("/", func(response http.ResponseWriter, request *http.Request) {
-		_, _ = fmt.Fprintln(response, "Up and running ...")
-	})
+	connection.ConnectDatabase() // new
 
 	httpRouter.GET("/users", userController.GetUsers)
 	httpRouter.POST("/users", userController.PostUsers)
 
 	httpRouter.SERVE(port)
-
 }
