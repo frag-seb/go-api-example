@@ -13,8 +13,8 @@ type UserService interface {
 	Validate(user *entity.User) error
 	Create(user *entity.User) (*entity.User, error)
 	FindAll() ([]entity.User, error)
-	Find(user_id string) (*entity.User, error)
-	Delete(user_id string) error
+	Find(userId string) (*entity.User, error)
+	Delete(userId string) error
 }
 
 type service struct{}
@@ -56,10 +56,10 @@ func (*service) FindAll() ([]entity.User, error) {
 	return repo.FindAll()
 }
 
-func (*service) Find(user_id string) (*entity.User, error) {
-	return repo.Find(user_id)
+func (*service) Find(userId string) (*entity.User, error) {
+	return repo.Find(userId)
 }
 
-func (*service) Delete(user_id string) error {
-	return repo.Delete(user_id)
+func (*service) Delete(userId string) error {
+	return repo.Delete(userId)
 }

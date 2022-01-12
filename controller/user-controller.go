@@ -45,16 +45,15 @@ func (*controller) GetUsers(response http.ResponseWriter, request *http.Request)
 func (*controller) GetUser(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Content-Type", "application/json")
 
-	vars := mux.Vars(request)
-	user_id := vars["id"]
+	userId := mux.Vars(request)["id"]
 
-	if user_id == "" {
+	if userId == "" {
 		response.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(response).Encode(errors.New("Error user not found"))
 		return
 	}
 
-	user, err := userService.Find(user_id)
+	user, err := userService.Find(userId)
 	if err != nil {
 		response.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(response).Encode(errors.New("Error user not found"))
@@ -99,17 +98,17 @@ func (*controller) DeleteUser(response http.ResponseWriter, request *http.Reques
 	response.Header().Set("Content-Type", "application/json")
 
 	vars := mux.Vars(request)
-	user_id := vars["id"]
+	userId := vars["id"]
 
-	fmt.Println(user_id)
+	fmt.Println(userId)
 
-	if user_id == "" {
+	if userId == "" {
 		response.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(response).Encode(errors.New("Error user not found"))
 		return
 	}
 
-	err := userService.Delete(user_id)
+	err := userService.Delete(userId)
 	if err != nil {
 		response.WriteHeader(http.StatusNotFound)
 		json.NewEncoder(response).Encode(errors.New("Error user not found"))

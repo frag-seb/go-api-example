@@ -30,11 +30,11 @@ func (*repo) FindAll() ([]entity.User, error) {
 	return users, nil
 }
 
-func (*repo) Find(user_id string) (*entity.User, error) {
+func (*repo) Find(userId string) (*entity.User, error) {
 	var user entity.User
 
 	for _, v := range users {
-		if v.ID == user_id {
+		if v.ID == userId {
 			user = entity.User{
 				ID:        v.ID,
 				Firstname: v.Firstname,
@@ -50,10 +50,10 @@ func (*repo) Find(user_id string) (*entity.User, error) {
 	return &user, nil
 }
 
-func (*repo) Delete(user_id string) error {
+func (*repo) Delete(userId string) error {
 
 	for i, v := range users {
-		if v.ID == user_id {
+		if v.ID == userId {
 			// Found it!
 			users = append(users[:i], users[i+1:]...)
 			break
